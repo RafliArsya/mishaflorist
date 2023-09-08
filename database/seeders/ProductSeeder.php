@@ -20,6 +20,10 @@ class ProductSeeder extends Seeder
      */
     public function run(): void
     {
+        if (env('APP_ENV') === 'local') {
+            Storage::disk('public')->deleteDirectory('product');
+        }
+
         $allImages = Storage::disk('dummy')->allFiles();
         foreach ($this->categories as $category) {
             $category = ProductCategory::create([
@@ -34,8 +38,16 @@ class ProductSeeder extends Seeder
                 $productFactory = Product::factory()->make([
                     "name" => str_replace(["-", ".jpg"], [" ", ""], $image),
                 ]);
+
                 $product = $category->products()->createMany([
-                    $productFactory->toArray()
+                    [
+                        "name" => $productFactory->name,
+                        "price" => $productFactory->price,
+                        "stock" => $productFactory->stock,
+                        "discount" => $productFactory->discount,
+                        "description" => $productFactory->description,
+                        "featured" => $productFactory->featured,
+                    ]
                 ]);
 
                 $product = $product[0];
@@ -56,7 +68,7 @@ class ProductSeeder extends Seeder
 
                 info("Uploaded new image:" . $filePath);
 
-                $filePath = str_replace(storage_path('app/public'), "storage", $filePath);
+                $filePath = str_replace(storage_path('app/public'), "", $filePath);
 
                 $product->pictures()->create([
                     "path" => $filePath,

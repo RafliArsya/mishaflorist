@@ -10,8 +10,35 @@
                         <input id="Diskon" type="checkbox" wire:model="filter.discount">
                         <label for="Diskon">Diskon</label>
                     </div>
-
+                    <h3>Harga</h3>
+                    <div class="flex gap-2" hidden>
+                        <input id="SortedPrice" type="radio" wire:model="filter.price" value=0 {{ $filter["price"]>0? '': 'hidden'}}>
+                        <label for="SortedPrice" {{ $filter["price"] > 0 ? '': 'hidden'}}>Hilangkan</label>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="SortedPrice2" type="radio" wire:model="filter.price" value=1>
+                        <label for="SortedPrice2">Termurah</label>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="SortedPrice3" type="radio" wire:model="filter.price" value=2>
+                        <label for="SortedPrice3">Termahal</label>
+                    </div>
+                    <h3>Stok</h3>
+                    <div class="flex gap-2" hidden>
+                        <input id="StockAvailibility" type="radio" wire:model="filter.stock" value=0 {{ $filter["stock"]>0? '': 'hidden'}}>
+                        <label for="StockAvailibility" {{ $filter["stock"] > 0 ? '': 'hidden'}}>Semua</label>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="StockAvailibility" type="radio" wire:model="filter.stock" value=1>
+                        <label for="StockAvailibility">Kurang dari 10</label>
+                    </div>
+                    <div class="flex gap-2">
+                        <input id="StockAvailibility" type="radio" wire:model="filter.stock" value=2>
+                        <label for="StockAvailibility">Lebih dari 10</label>
+                    </div>
                 </div>
+
+                {{--Show button: {{var_export($filter)}}--}}
 
                 {{-- <button
                     class="w-full flex items-center justify-center rounded-sm bg-stone-800 px-3 py-2 text-center text-sm font-medium text-white hover:opacity-75 transition-opacity ease-in-out duration-500 mt-2">
@@ -25,14 +52,14 @@
                         placeholder="Search...">
                 </div>
 
-                <div class="border-2 rounded-lg bg-white hidden md:flex ">
+                <!--<div class="border-2 rounded-lg bg-white hidden md:flex ">
                     <select class="bg-transparent flex-1 p-2 outline-none w-40 md:w-60">
                         <option value="">Urutkan</option>
                         <option value="">Sort By</option>
                         <option value="">Sort By</option>
                         <option value="">Sort By</option>
                     </select>
-                </div>
+                </div>-->
 
                 <div class="md:hidden">
                     <input type="checkbox" id="filter-toggle" class="hidden" />
@@ -46,17 +73,6 @@
                         class="flex flex-col bg-white p-4 fixed bottom-0 left-0 right-0 z-50 rounded-t-lg max-h-96 invisible translate-y-full transition-all ease-in-out">
                         <div class="overflow-auto">
                             <div class="p-2 ">
-                                <h3>Urutkan Berdasarkan</h3>
-                                <div class="flex flex-wrap gap-2">
-                                    <div class="flex gap-2 flex-1">
-                                        <input id="Urutan" type="radio">
-                                        <label for="Urutan" class="whitespace-nowrap">Urutan</label>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="p-2 ">
                                 <h3>Promo</h3>
                                 <div class="flex flex-wrap gap-2">
                                     <div class="flex gap-2 flex-1">
@@ -64,9 +80,36 @@
                                         <label for="Diskon" class="whitespace-nowrap">Diskon</label>
                                     </div>
                                 </div>
+                                <h3>Urutkan harga</h3>
+                                <div class="flex gap-2" hidden>
+                                    <input id="SortedPrice" type="radio" wire:model="filter.price" value=0 {{ $filter['price']>0? '': 'hidden'}}>
+                                    <label for="SortedPrice" {{ $filter['price']>0? '': 'hidden'}}>Hilangkan</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input id="SortedPrice2" type="radio" wire:model="filter.price" value=1>
+                                    <label for="SortedPrice2">Murah</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input id="SortedPrice3" type="radio" wire:model="filter.price" value=2>
+                                    <label for="SortedPrice3">Mahal</label>
+                                </div>
+                                <h3>Stok</h3>
+                                <div class="flex gap-2" hidden>
+                                    <input id="StockAvailibility" type="radio" wire:model="filter.stock" value=0 {{ $filter["stock"]>0? '': 'hidden'}}>
+                                    <label for="StockAvailibility" {{ $filter["stock"] > 0 ? '': 'hidden'}}>Semua</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input id="StockAvailibility" type="radio" wire:model="filter.stock" value=1>
+                                    <label for="StockAvailibility">Kurang dari 10</label>
+                                </div>
+                                <div class="flex gap-2">
+                                    <input id="StockAvailibility" type="radio" wire:model="filter.stock" value=2>
+                                    <label for="StockAvailibility">Lebih dari 10</label>
+                                </div>
                             </div>
                         </div>
 
+                        
                         {{-- <div class="p-2">
                             <button
                                 class="w-full flex items-center justify-center rounded-sm bg-stone-800 px-3 py-2 md:px-5 md:py-3 text-center text-sm font-medium text-white hover:opacity-75 transition-opacity ease-in-out duration-500">

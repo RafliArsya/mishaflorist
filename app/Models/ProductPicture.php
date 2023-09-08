@@ -27,7 +27,8 @@ class ProductPicture extends Model
     protected function path(): Attribute
     {
         return Attribute::make(
-            set: fn ($value) =>  str_replace(asset('"/"'), "", $value),
+            set: fn ($value) =>  str_replace(asset('"/"'), "", "$value"),
+            get: fn ($value) =>  "storage/$value"
         );
     }
 }

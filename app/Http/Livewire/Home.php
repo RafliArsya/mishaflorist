@@ -7,9 +7,9 @@ use Livewire\Component;
 
 class Home extends Component
 {
-    public function render()
-    {
-        $featuredProducts = Product::where('is_featured', true)->get();
-        return view('livewire.home', compact('featuredProducts'))->layout('layouts.main', ['title' => 'Home', 'headerVisibleOnScroll' => true]);
-    }
+	public function render()
+	{
+		$featuredProducts = Product::where('featured', true)->get();
+		return view('livewire.home', compact('featuredProducts'))->layout('layouts.main', ['title' => 'Home', 'headerVisibleOnScroll' => false]);
+	}
 }

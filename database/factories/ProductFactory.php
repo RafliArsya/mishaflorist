@@ -19,10 +19,10 @@ class ProductFactory extends Factory
         return [
             'name' => "Bunga " . $this->faker->word,
             'price' => $this->faker->randomNumber(2) * $this->faker->randomElement([1000, 10000]),
-            'quantity' => $this->faker->numberBetween(0, 10),
+            'stock' => $this->faker->numberBetween(0, 10),
             'discount' => $this->faker->randomElement([0, 10, 20, 30]),
             'description' => $this->faker->text,
-            'is_featured' => $this->faker->boolean,
+            'featured' => $this->faker->boolean,
         ];
     }
 }

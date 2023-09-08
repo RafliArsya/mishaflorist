@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @livewire('components.header', ['visibleOnScroll' => $headerVisibleOnScroll ?? false])
+    @livewire('components.header', ['visibleOnScroll' => $headerVisibleOnScroll ?? false], 'header')
 
     <div class="min-h-screen">
         {{ $slot }}

@@ -12,22 +12,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
-    use HasFactory, HasUuids, SoftDeletes, Sluggable;
+    use HasFactory, HasUuids, SoftDeletes;
 
     protected $guarded = ['id'];
     protected $with = ['category', 'pictures'];
-    protected $appends = ['discounted_price'];
+    protected $appends = ['discounted_percent'];
     protected $casts = [
         'quantity' => 'integer',
-        'discount' => 'integer',
-        'is_featured' => 'boolean',
+        'discounted' => 'integer',
+        'featured' => 'boolean',
         'product_category_id' => 'integer',
     ];
 
-    protected function getDiscountedPriceAttribute(): int
+    protected function getDiscountedPercentAttribute(): int
     {
-        $value = $this->price;
-        return (int) $value - ($value * $this->discount / 100);
+        $orig_price = $this->price;
+        $discount_price = $this->discounted;
+        $disc_off = $discount_price>0 ? $orig_price - $discount_price : 0;
+        $value = ($disc_off / $orig_price  * 100);
+        return (int) $value;
     }
 
     public function category()

@@ -8,6 +8,9 @@
     html {
         scroll-behavior: smooth;
     }
+    * {
+        @apply font-lato;
+    }
 
     h1,
     h2,
@@ -27,6 +30,12 @@
     body {
         @apply bg-slate-50;
     }
+
+    input,
+    select,
+    textarea {
+        @apply outline-none;
+    }
 }
 
 @layer components {
@@ -41,6 +50,82 @@
     .swiper-nav {
         @apply absolute z-10 flex justify-center items-center w-6 aspect-square rounded bg-stone-900 text-white text-xxs top-1/2 -translate-y-1/2 leading-none hover:bg-stone-800 md:w-12 md:text-lg;
     }
+
+    .nav-list {
+        @apply w-full transition-all duration-300 ease-in-out;
+    }
+
+    .table {
+        @apply items-center w-full bg-transparent border-collapse;
+    }
+
+    .table-head {
+        @apply px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-stone-50 text-stone-500 border-stone-100;
+    }
+
+    .table-data {
+        @apply border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs max-w-xs p-4;
+    }
+
+    .invalid-message {
+        @apply text-red-500 text-xs block;
+    }
+
+    .badge {
+        @apply flex justify-between items-center text-xs font-semibold py-1 px-2 rounded uppercase w-fit text-stone-100 whitespace-nowrap;
+    }
+
+    .badge-danger {
+        @apply bg-red-400;
+    }
+
+    .badge-success {
+        @apply bg-green-400;
+    }
+
+    .badge-warning {
+        @apply bg-yellow-400;
+    }
+
+    .badge-info {
+        @apply bg-blue-400;
+    }
+
+    .badge-primary {
+        @apply bg-teal-400;
+    }
+
+    .badge-secondary {
+        @apply bg-stone-400;
+    }
+
+    .clickable {
+        @apply cursor-pointer;
+    }
+
+    .clickable.badge-danger {
+        @apply hover:bg-red-500;
+    }
+
+    .clickable.badge-success {
+        @apply hover:bg-green-500;
+    }
+
+    .clickable.badge-warning {
+        @apply hover:bg-yellow-500;
+    }
+
+    .clickable.badge-info {
+        @apply hover:bg-blue-500;
+    }
+
+    .clickable.badge-primary {
+        @apply hover:bg-teal-500;
+    }
+
+    .clickable.badge-secondary {
+        @apply hover:bg-stone-500;
+    }
 }
 
 @layer utilities {
@@ -49,23 +134,8 @@
     }
 }
 
-#hamburger-toggle:checked ~ #hamburger #bar {
-    @apply bg-transparent rotate-180  after:translate-y-[-90%] after:rotate-[-45deg]  before:translate-y-[10%] before:rotate-[45deg];
-}
-
-#hamburger-toggle:checked ~ #screen {
-    @apply block;
-}
-
-.nav-list {
-    @apply opacity-0 w-full bg-stone-500 p-1 transition-all duration-300 ease-in-out hover:bg-stone-600;
-}
-
-#hamburger-toggle:checked ~ ul {
-    @apply visible flex translate-x-0;
-}
-#hamburger-toggle:checked ~ ul .nav-list {
-    @apply opacity-100;
+.hidden-add {
+    visibility: hidden;
 }
 
 #collection-swiper .swiper-slide {
@@ -76,10 +146,59 @@
     @apply visible;
 }
 
-.nav-list {
-    @apply opacity-0 w-full bg-stone-500 p-1 transition-all duration-300 ease-in-out hover:bg-stone-600;
-}
-
 #filter-toggle:checked ~ #filter-box {
     @apply visible translate-y-0 transition-all;
 }
+
+/* Product View */
+.product-view .product-name{
+    font-size: 24px;
+    color: #2874f0;
+}
+.product-view .product-name .label-stock{
+    font-size: 13px;
+    padding: 4px 13px;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    float: right;
+}
+.product-view .product-path{
+    font-size: 13px;
+    font-weight: 500;
+    color: #252525;
+    margin-bottom: 16px;
+}
+.product-view .selling-price{
+    font-size: 26px;
+    color: #000;
+    font-weight: 600;
+    margin-right: 8px;
+}
+.product-view .original-price{
+    font-size: 18px;
+    color: #937979;
+    font-weight: 400;
+    text-decoration: line-through;
+}
+.product-view .btn1{
+    border: 1px solid;
+    margin-right: 3px;
+    border-radius: 0px;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.product-view .btn1:hover{
+    background-color: #2874f0;
+    color: #fff;
+}
+.product-view .input-quantity{
+    border: 1px solid #000;
+    margin-right: 3px;
+    font-size: 12px;
+    margin-top: 10px;
+    width: 58px;
+    outline: none;
+    text-align: center;
+}
+/* Product View */
