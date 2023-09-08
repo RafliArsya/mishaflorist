@@ -44,6 +44,37 @@ class Detail extends Component
         return view('livewire.detail', compact('product'))->layout('layouts.main', ['title' => $product['slug']]);
     }
 
+    public function convertdaytoid($day){
+        switch($day){
+            case 'Sun':
+                $hari_ini = "Minggu";
+            break;
+            case 'Mon':			
+                $hari_ini = "Senin";
+            break;
+            case 'Tue':
+                $hari_ini = "Selasa";
+            break;
+            case 'Wed':
+                $hari_ini = "Rabu";
+            break;
+            case 'Thu':
+                $hari_ini = "Kamis";
+            break;
+            case 'Fri':
+                $hari_ini = "Jumat";
+            break;
+            case 'Sat':
+                $hari_ini = "Sabtu";
+            break;
+            
+            default:
+                $hari_ini = "Tidak di ketahui";		
+            break;
+        }
+        return $hari_ini;
+    }
+
     public function pesan()
     {
         //$mytime = Carbon\Carbon::now();
@@ -55,27 +86,32 @@ class Detail extends Component
             'alamat' => $this->Alamat,
             'waktu' => $this->waktu,
         ];*/
+
         $error = 0;
         if (Str::length($this->Ucapan)<=3){
             $error = $error + 1;
         }
+
         if (Str::length($this->Alamat)<12){
             $error = $error + 2;
         }
 
         if($error){
             if($error-2>=0){
+                $error= $error-2;
                 $this->dispatchBrowserEvent('alert', [
                     'type' => 'error',
                     'message' => "Alamat setidaknya 12 karakter",
                 ]);
             }
             if($error-1>=0){
+                $error= $error-1;
                 $this->dispatchBrowserEvent('alert', [
                     'type' => 'error',
                     'message' => "Ucapan setidaknya 3 karakter",
                 ]);
             }
+            return;
         }
 
         $waktupesan = strtotime($this->waktu);
@@ -93,11 +129,15 @@ class Detail extends Component
 
         //$this->emit('refreshProduct');
         $nama_t = urlencode($this->slug);
-        $ucapan_t = urlencode($this->Ucapan);
-        $alamat_t = urlencode($this->Alamat);
+        //$ucapan_t = urlencode($this->Ucapan);
+        //$ucapan_t = str_replace('+', '%20', $ucapan_t);
+        //$alamat_t = urlencode($this->Alamat);
+        //$alamat_t = str_replace('+', '%20', $alamat_t);
+        $day = date('D', $waktupesan);
+        $day = $this->convertdaytoid($day);
         $waktu_t = urlencode($this->waktu);
 
-        $pesanan = "Jenis bunga: {$nama_t}\nUcapan: {$ucapan_t}\nAlamat: {$alamat_t}\nWaktu Pengiriman: {$waktu_t}";
+        $pesanan = "Jenis bunga: {$nama_t}\nUcapan: {$this->Ucapan}\nAlamat: {$this->Alamat}\nWaktu Pengiriman: {$day}, {$waktu_t}";
         $pesanan_t = urlencode($pesanan);
 
         //dd($pesanan_t);
