@@ -8,8 +8,7 @@
     <link rel="icon" href="{{ asset('logo.ico') }}">
 
     <title>@yield('title') - {{ config('app.name') }}</title>
-    @vite('resources/js/app.js')
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link href="{{ asset('assets/exzoom/jquery.exzoom.css') }}" rel="stylesheet">

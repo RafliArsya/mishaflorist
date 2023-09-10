@@ -8,6 +8,7 @@ use App\Models\ProductCategory;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
@@ -103,12 +104,21 @@ class Create extends Component
         $data = [
             'name' => $this->name,
             'featured' => $this->featured,
+            'slug' => Str::slug($this->name),
             'stock' => $this->stock,
             'product_category_id' => $this->category,
             'price' => $this->price,
             'discounted' => $this->discounted,
             'description' => $this->description,
         ];
+
+        if($this->category == null){
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'error',
+                'message' => 'Category tidak boleh kosong',
+            ]);
+            return;
+        }
 
         if ($this->discounted > $this->price){
             $this->dispatchBrowserEvent('alert', [
@@ -120,6 +130,7 @@ class Create extends Component
 
         try {
             $product = \App\Models\Product::create($data);
+            
         } catch (\Throwable $th) {
             $this->dispatchBrowserEvent('alert', [
                 'type' => 'error',

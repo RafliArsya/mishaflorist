@@ -7,6 +7,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\ProductCategory;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Edit extends Component
 {
@@ -117,6 +118,7 @@ class Edit extends Component
 
         $data = [
             'name' => $this->name,
+            'slug' => Str::slug($this->name),
             'featured' => $this->featured,
             'stock' => $this->stock,
             'product_category_id' => $this->category,
@@ -124,6 +126,14 @@ class Edit extends Component
             'discounted' => $this->discounted,
             'description' => $this->description,
         ];
+
+        if($this->category == null){
+            $this->dispatchBrowserEvent('alert', [
+                'type' => 'error',
+                'message' => 'Category tidak boleh kosong',
+            ]);
+            return;
+        }
 
         if ($this->discounted > $this->price){
             $this->dispatchBrowserEvent('alert', [
